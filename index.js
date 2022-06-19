@@ -11,12 +11,12 @@ const tweets = [];
 app.post('/sign-up', (req, res) => {
   const userData = req.body; // será o objeto com os dados de login
   usersData.push(userData);
-  res.send("OK");
+  res.status(201).send("OK");
 });
 app.post('/tweets', (req, res) => {
     const tweet = req.body; // será o objeto com os dados de login
     tweets.push(tweet.tweet);
-    res.send(tweets);
+    res.status(201).send("OK");
   });
 app.get('/tweets', (req, res) => {
     let lastTweets = tweets.slice(-10)
