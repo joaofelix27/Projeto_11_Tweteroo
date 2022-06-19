@@ -31,8 +31,16 @@ app.post('/tweets', (req, res) => {
    
   });
 app.get('/tweets', (req, res) => {
-    let lastTweets = tweets.slice(-10)
+    const pagina=req.query.page;
+    let lastTweets = tweets.slice(-10).reverse()
+    if (pagina>1){
+      lastTweets = tweets.slice(tweets.length-(pagina*10),(pagina-1)*-10).reverse()
+    }
     res.send(lastTweets); 
 });
-
+app.get('/tweets/:userName', (req, res) => {
+  const userName = req.params.userName;
+  const userTweets= tweets.filter(tweet => tweet.username===userName)
+  res.send(userTweets)
+});
 app.listen(5000);
