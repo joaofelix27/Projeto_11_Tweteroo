@@ -5,7 +5,7 @@ const app = express(); // cria um servidor
 app.use(express.json());
 app.use(cors());
 
-const usersData = [];
+const usersData=[];
 const tweets = [];
 
 app.post('/sign-up', (req, res) => {
@@ -14,8 +14,8 @@ app.post('/sign-up', (req, res) => {
   res.status(201).send("OK");
 });
 app.post('/tweets', (req, res) => {
-    const tweet = req.body; // será o objeto com os dados de login
-    tweets.push(tweet.tweet);
+    const tweet = {... req.body, avatar:usersData[0].avatar}; // será o objeto com os dados do  tweet
+    tweets.push(tweet);
     res.status(201).send("OK");
   });
 app.get('/tweets', (req, res) => {
