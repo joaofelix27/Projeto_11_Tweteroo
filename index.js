@@ -32,12 +32,16 @@ app.post('/tweets', (req, res) => {
   });
 app.get('/tweets', (req, res) => {
     const pagina=req.query.page;
-    let lastTweets = tweets.slice(-10).reverse()
-    if (pagina>1){
-      lastTweets = tweets.slice(tweets.length-(pagina*10),(pagina-1)*-10).reverse()
-    }
-    res.send(lastTweets); 
-});
+    if (pagina>0){
+      let lastTweets = tweets.slice(-10).reverse()
+      if (pagina>1){
+        lastTweets = tweets.slice(tweets.length-(pagina*10),(pagina-1)*-10).reverse()
+      }
+      res.send(lastTweets); 
+    } else {res.status(400).send("Informe uma página válida!");}
+  }); 
+    
+
 app.get('/tweets/:userName', (req, res) => {
   const userName = req.params.userName;
   const userTweets= tweets.filter(tweet => tweet.username===userName)
