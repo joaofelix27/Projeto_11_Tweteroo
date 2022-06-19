@@ -14,7 +14,8 @@ app.post('/sign-up', (req, res) => {
   res.status(201).send("OK");
 });
 app.post('/tweets', (req, res) => {
-    const tweet = {... req.body, avatar:usersData[0].avatar}; // será o objeto com os dados do  tweet
+    const userAvatar= usersData.find(user => user.username===req.body.username)
+    const tweet = {... req.body, avatar:userAvatar.avatar}; // será o objeto com os dados do  tweet
     tweets.push(tweet);
     res.status(201).send("OK");
   });
