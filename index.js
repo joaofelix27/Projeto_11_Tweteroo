@@ -20,12 +20,12 @@ app.post('/sign-up', (req, res) => {
 });
 app.post('/tweets', (req, res) => {
     const tweetData=req.body
-    const userName=tweetData.username
+    const userName=req.header('User')
     const userTweet=tweetData.tweet
     if (userName && userTweet ) {
-      const userAvatar= usersData.find(user => user.username===tweetData.username)
-      const tweet = {... tweetData, avatar:userAvatar.avatar}; // será o objeto com os dados do  tweet
-      tweets.push(tweet);
+      const userAvatar= usersData.find(user => user.username===userName)
+      const tweet = {... tweetData, username:userName, avatar:userAvatar.avatar}; // será o objeto com os dados do  tweet
+      tweets.push(tweet); 
       res.status(201).send("OK");
     } else {res.status(400).send("Todos os campos são obrigatórios!");}
    
